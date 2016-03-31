@@ -1,9 +1,15 @@
 function sec2ms(sec) { return sec*1000; }
 
 var BENCHMARK = {
-	count: 10000
+	"count": 10000,
+	"timelimit": 5
 };
 
+//	parameters = {
+//		"test": function(){},
+//		"count": Number(),
+//		"timelimit": Number()
+//	}
 function time_measure (parameters) {
 
 	if (typeof (parameters["test"]) != "function")
@@ -15,19 +21,19 @@ function time_measure (parameters) {
 
 	var timelimit = sec2ms(parameters["timelimit"]);
 	if (typeof (timelimit) == "undefined")
-		timelimit = sec2ms(5);
+		timelimit = sec2ms(BENCHMARK.timelimit);
 
-	var tooMuchTimePassed = false;
-	var identifier = ""+Math.random();
+	var identifier = "Duration";
 	var now = Date.now();
+	console.log("Running:", parameters["test"]);
 	console.time(identifier);
 	var runCount = count;
 	while (runCount--)
 	{
 		parameters["test"]();
-		if (timelimit < Date.now()-now)
+		if (timelimit < (Date.now()-now))
 		{
-			console.log("Time out, times run:", count-runCount);
+			console.log("Time out, times run:", count-runCount );
 			break;
 		}
 	}
@@ -45,6 +51,8 @@ function benchmark () {
 	);
 }
 
+// object - Any type of object
+// handler - Function
 function iterator (object, handler) {
 
 	if (typeof (handler) != "function")
