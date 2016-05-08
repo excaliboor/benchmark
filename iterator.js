@@ -6,10 +6,7 @@ function iterator (object, handler) {
 	switch (object.constructor.name)
 	{
 		case "Array":
-			for (var itemIndex = 0, numberOfItems = object.length; itemIndex < numberOfItems; ++i)
-			{
-				handler(object[itemIndex]);
-			}
+			object.forEach(handler);
 		break;
 
 		case "Object":
