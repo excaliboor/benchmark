@@ -11,9 +11,7 @@ function iterator (object, handler) {
 
 		case "Object":
 			for (var key in object)
-			{
 				handler(object[key]);
-			}
 		break;
 	}
 }
